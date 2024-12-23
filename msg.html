@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="cisco.png" >
+  <title>Cisco Networking Academy: Learn Cybersecurity, Python & More</title>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Animation des lettres */
+    .letter {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      margin-right: 8px;
+      font-weight: bold;
+    }
+
+    #message {
+      font-family: 'Poppins', serif;
+    }
+
+    body {
+      background-color: #f0f4f8;
+      font-family: 'Poppins', serif;
+    }
+
+    /* Animation du fond */
+    .bg-transition {
+      background: linear-gradient(45deg, #6ee7b7, #3b82f6);
+      animation: gradientAnimation 4s ease infinite;
+    }
+
+    @keyframes gradientAnimation {
+      0% {
+        background: linear-gradient(45deg, #6ee7b7, #3b82f6);
+      }
+      50% {
+        background: linear-gradient(45deg, #9333ea, #ff4c7c);
+      }
+      100% {
+        background: linear-gradient(45deg, #6ee7b7, #3b82f6);
+      }
+    }
+
+    /* Personnage qui se moque */
+    .mocking-person {
+      position: absolute;
+      bottom: 5%;
+      left: 10%;
+      animation: bounce 1s ease infinite;
+      font-size: 3rem;
+      color: #ff4c7c;
+    }
+
+    @keyframes bounce {
+      0% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+
+    /* Bulle de texte du moqueur */
+    .mock-bubble {
+      position: absolute;
+      bottom: 10%;
+      left: 12%;
+      background-color: rgba(0, 0, 0, 0.1);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 1.2rem;
+      animation: fadeInOut 4s ease-in-out infinite;
+    }
+
+    @keyframes fadeInOut {
+      0% {
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+
+    /* Style pour les alertes */
+    .alert {
+      padding: 10px;
+      margin-top: 20px;
+      background-color: #ffcc00;
+      color: #000;
+      font-weight: bold;
+      border-radius: 8px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body class="bg-transition flex justify-center items-center min-h-screen relative">
+
+  <!-- Conteneur du message -->
+  <div class="w-full bg-white max-w-2xl p-6 space-y-6 rounded-xl shadow-2xl transform transition-all duration-500 hover:scale-105 text-center">
+    <h2 class="text-4xl font-semibold text-gray-900 mb-6" id="message"></h2>
+
+    <!-- Affichage des informations sensibles -->
+    <div class="alert">
+      <p><strong>Email:</strong> <span id="email"></span></p>
+      <p><strong>Mot de passe:</strong> <span id="password"></span></p>
+      <p><strong>Restez vigilants !</strong></p>
+    </div>
+  </div>
+
+  <!-- Personnage se moquant -->
+  <div class="mocking-person animate__animated animate__fadeIn">
+    😆
+  </div>
+
+  <!-- Bulle du moqueur -->
+  <div class="mock-bubble animate__animated animate__fadeInUp">
+    "T'es tombé dans le piège! Haha! J'aurai pu te hacker haha !"
+  </div>
+
+  <script>
+    // Récupérer les informations de localStorage
+    const prenom = localStorage.getItem('prenom');
+    const nom = localStorage.getItem('nom');
+    const email = localStorage.getItem('email');
+    const mdp = localStorage.getItem('password')
+
+    // Créer le message
+    const message = `Comment ${prenom} ${nom} a pu croire à ça !?`;
+
+    // Sélectionner l'élément où le message va être affiché
+    const messageElement = document.getElementById('message');
+    const emailElement = document.getElementById('email');
+    const passwordElement = document.getElementById('password');
+
+    // Afficher l'email et le mot de passe
+    emailElement.textContent = email;
+    passwordElement.textContent = mdp;
+
+    // Fonction pour afficher le message lettre par lettre
+    function displayMessage(message) {
+      messageElement.innerHTML = ''; // Vider le message existant
+      [...message].forEach((letter, index) => {
+        const letterElement = document.createElement('span');
+        letterElement.textContent = letter;
+        letterElement.classList.add('letter');
+        messageElement.appendChild(letterElement);
+
+        // Ajouter une animation pour chaque lettre
+        setTimeout(() => {
+          letterElement.style.opacity = 1;
+          letterElement.style.transform = 'translateY(0)';
+        }, index * 120); // Délai pour chaque lettre, plus fluide
+      });
+    }
+
+    // Appeler la fonction pour afficher le message
+    displayMessage(message);
+  </script>
+
+</body>
+</html>
